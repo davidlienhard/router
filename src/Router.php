@@ -29,13 +29,13 @@ class Router implements RouterInterface
      * list of dependencies to load
      * @var     array           $dependencies
      */
-    private $dependencies = [ ];
+    private array $dependencies = [];
 
     /**
      * list of all supported http request methods
      * @var     array           $supportedMethods
      */
-    private $supportedMethods = [
+    private array $supportedMethods = [
         "GET",
         "POST",
         "PUT",
@@ -49,13 +49,13 @@ class Router implements RouterInterface
      * the route patterns and their handling functions
      * @var     array           $routes
      */
-    private $routes = [];
+    private array $routes = [];
 
     /**
      * the before middleware route patterns and their handling functions
      * @var     array           $beforeRoutes
      */
-    private $beforeRoutes = [];
+    private array $beforeRoutes = [];
 
     /**
      * the function to be executed when no route has been matched
@@ -65,27 +65,23 @@ class Router implements RouterInterface
 
     /**
      * current base route, used for (sub)route mounting
-     * @var     string          $baseRoute
      */
-    private $baseRoute = '';
+    private string $baseRoute = '';
 
     /**
      * the request method that needs to be handled
-     * @var     string          $requestedMethod
      */
-    private $requestedMethod = '';
+    private string $requestedMethod = '';
 
     /**
      * the server base path for router execution
-     * @var     string          $serverBasePath
      */
-    private $serverBasePath;
+    private string $serverBasePath;
 
     /**
      * default controllers namespace
-     * @var     string          $namespace
      */
-    private $namespace = '';
+    private string $namespace = '';
 
 
     /**
@@ -99,7 +95,7 @@ class Router implements RouterInterface
      * @return          void
      * @uses            self::$dependencies
      */
-    public function __construct(array $dependencies = [ ])
+    public function __construct(array $dependencies = [])
     {
         $this->dependencies = $dependencies;
     }
@@ -113,7 +109,6 @@ class Router implements RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $file           file to require
-     * @return          void
      * @uses            self::$dependencies
      * @uses            self::handleNotFound()
      */
@@ -140,11 +135,10 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::before()
      * @uses            self::$supportedMethods
      */
-    public function beforeAll(string $pattern, $fn)
+    public function beforeAll(string $pattern, object|callable $fn): void
     {
         $this->before($this->supportedMethods, $pattern, $fn);
     }
@@ -160,19 +154,18 @@ class Router implements RouterInterface
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::$baseRoute
      * @uses            self::$beforeRoutes
      */
-    public function before($methods, string $pattern, $fn)
+    public function before(array|string $methods, string $pattern, object|callable $fn): void
     {
-        $pattern = $this->baseRoute . '/' . trim($pattern, '/');
+        $pattern = $this->baseRoute.'/'.trim($pattern, '/');
         $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
 
         foreach (self::formatMethods($methods) as $method) {
             $this->beforeRoutes[$method][] = [
                 'pattern' => $pattern,
-                'fn' => $fn,
+                'fn'      => $fn,
             ];
         }
     }
@@ -188,19 +181,18 @@ class Router implements RouterInterface
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::$baseRoute
      * @uses            self::$routes
      */
-    public function add($methods, string $pattern, $fn)
+    public function add(array|string $methods, string $pattern, object|callable $fn): void
     {
-        $pattern = $this->baseRoute . '/' . trim($pattern, '/');
+        $pattern = $this->baseRoute.'/'.trim($pattern, '/');
         $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
 
         foreach (self::formatMethods($methods) as $method) {
             $this->routes[$method][] = [
                 'pattern' => $pattern,
-                'fn' => $fn,
+                'fn'      => $fn,
             ];
         }
     }
@@ -214,11 +206,10 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::add()
      * @uses            self::$supportedMethods
      */
-    public function all(string $pattern, $fn)
+    public function all(string $pattern, object|callable $fn): void
     {
         $this->add($this->supportedMethods, $pattern, $fn);
     }
@@ -232,10 +223,9 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::add()
      */
-    public function get(string $pattern, $fn)
+    public function get(string $pattern, object|callable $fn): void
     {
         $this->add('GET', $pattern, $fn);
     }
@@ -249,10 +239,9 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::add()
      */
-    public function post(string $pattern, $fn)
+    public function post(string $pattern, object|callable $fn): void
     {
         $this->add('POST', $pattern, $fn);
     }
@@ -266,10 +255,9 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::add()
      */
-    public function patch(string $pattern, $fn)
+    public function patch(string $pattern, object|callable $fn): void
     {
         $this->add('PATCH', $pattern, $fn);
     }
@@ -283,10 +271,9 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::add()
      */
-    public function delete(string $pattern, $fn)
+    public function delete(string $pattern, object|callable $fn): void
     {
         $this->add('DELETE', $pattern, $fn);
     }
@@ -300,10 +287,9 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::add()
      */
-    public function put(string $pattern, $fn)
+    public function put(string $pattern, object|callable $fn): void
     {
         $this->add('PUT', $pattern, $fn);
     }
@@ -317,10 +303,9 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      * @uses            self::add()
      */
-    public function options(string $pattern, $fn)
+    public function options(string $pattern, object|callable $fn): void
     {
         $this->add('OPTIONS', $pattern, $fn);
     }
@@ -334,10 +319,9 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           string          $baseRoute      the route sub pattern to mount the callbacks on
      * @param           callable        $fn             the callback method
-     * @return          void
      * @uses            self::$baseRoute
      */
-    public function mount(string $baseRoute, $fn)
+    public function mount(string $baseRoute, callable $fn): void
     {
         // Track current base route
         $curBaseRoute = $this->baseRoute;
@@ -361,7 +345,7 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @return          array           the request headers
      */
-    public function getRequestHeaders()
+    public function getRequestHeaders(): array
     {
         $headers = [];
 
@@ -394,7 +378,7 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @return          string          the Request method to handle
      */
-    public function getRequestMethod()
+    public function getRequestMethod(): string
     {
         // Take the method as found in $_SERVER
         $method = $_SERVER['REQUEST_METHOD'] ?? "";
@@ -422,10 +406,9 @@ class Router implements RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $namespace      a given namespace
-     * @return          void
      * @uses            self::$namespace
      */
-    public function setNamespace($namespace)
+    public function setNamespace(string $namespace): void
     {
         if (is_string($namespace)) {
             $this->namespace = $namespace;
@@ -442,7 +425,7 @@ class Router implements RouterInterface
      * @return          string          the given Namespace if exists
      * @uses            self::$namespace
      */
-    public function getNamespace()
+    public function getNamespace(): string
     {
         return $this->namespace;
     }
@@ -456,7 +439,6 @@ class Router implements RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           object|callable $callback       function to be executed after a matching route was handled (= after router middleware)
-     * @return          bool
      * @uses            self::$requestedMethod
      * @uses            self::getRequestMethod()
      * @uses            self::$beforeRoutes
@@ -464,7 +446,7 @@ class Router implements RouterInterface
      * @uses            self::$routes
      * @uses            self::$notFoundCallback
      */
-    public function run($callback = null)
+    public function run(object|callable $callback = null): bool
     {
         // Define which method we need to handle
         $this->requestedMethod = $this->getRequestMethod();
@@ -506,10 +488,9 @@ class Router implements RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           object|callable $fn             the function to be executed$
-     * @return          void
      * @uses            self::$notFoundCallback
      */
-    public function set404($fn)
+    public function set404(object|callable $fn): void
     {
         $this->notFoundCallback = $fn;
     }
@@ -528,7 +509,7 @@ class Router implements RouterInterface
      * @uses            self::getCurrentUri()
      * @uses            self::invoke()
      */
-    private function handle(array $routes, bool $quitAfterRun = false)
+    private function handle(array $routes, bool $quitAfterRun = false): int
     {
         // Counter to keep track of the number of routes we've handled
         $numHandled = 0;
@@ -542,7 +523,7 @@ class Router implements RouterInterface
             $route['pattern'] = preg_replace('/\/{(.*?)}/', '/(.*?)', $route['pattern']);
 
             // we have a match!
-            if (preg_match_all('#^' . $route['pattern'] . '$#', $uri, $matches, PREG_OFFSET_CAPTURE)) {
+            if (preg_match_all('#^'.$route['pattern'].'$#', $uri, $matches, PREG_OFFSET_CAPTURE)) {
                 // Rework matches to only contain the matches, not the orig string
                 $matches = array_slice($matches, 1);
 
@@ -567,8 +548,8 @@ class Router implements RouterInterface
                 if ($quitAfterRun) {
                     break;
                 }
-            }
-        }
+            }//end if
+        }//end foreach
 
         // Return the number of routes handled
         return $numHandled;
@@ -583,10 +564,9 @@ class Router implements RouterInterface
      * @copyright       tourasia
      * @param           callable|object $fn             function / method to invoke
      * @param           array           $params         list of parameters
-     * @return          void
      * @uses            self::getNamespace()
      */
-    private function invoke($fn, array $params = [])
+    private function invoke(callable|object $fn, array $params = []): void
     {
         if (is_callable($fn)) {
             call_user_func_array($fn, $params);
@@ -595,7 +575,7 @@ class Router implements RouterInterface
             list($controller, $method) = explode('@', $fn);
             // Adjust controller class if namespace has been set
             if ($this->getNamespace() !== '') {
-                $controller = $this->getNamespace() . '\\' . $controller;
+                $controller = $this->getNamespace().'\\'.$controller;
             }
             // Check if class exists, if not just ignore and check if the class exists on the default namespace
             if (class_exists($controller)) {
@@ -608,7 +588,7 @@ class Router implements RouterInterface
                     }
                 }
             }
-        }
+        }//end if
     }
 
     /**
@@ -618,10 +598,9 @@ class Router implements RouterInterface
      * @version         1.0.0, 26.11.2020
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
-     * @return          string
      * @uses            self::getBasePath()
      */
-    public function getCurrentUri()
+    public function getCurrentUri(): string
     {
         // Get the current Request URI and remove rewrite base path from it (= allows one to run the router in a sub folder)
         $uri = substr(rawurldecode($_SERVER['REQUEST_URI']), strlen($this->getBasePath()));
@@ -632,7 +611,7 @@ class Router implements RouterInterface
         }
 
         // Remove trailing slash + enforce a slash at the start
-        return '/' . trim($uri, '/');
+        return '/'.trim($uri, '/');
     }
 
     /**
@@ -642,17 +621,16 @@ class Router implements RouterInterface
      * @version         1.0.0, 26.11.2020
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
-     * @return          string
      * @uses            self::$serverBasePath
      */
-    public function getBasePath()
+    public function getBasePath(): string
     {
         // Check if server base path is defined, if not define it.
         if ($this->serverBasePath === null) {
             $this->serverBasePath = implode(
                 '/',
                 array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)
-            ) . '/';
+            ).'/';
         }
 
         return $this->serverBasePath;
@@ -667,10 +645,9 @@ class Router implements RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $serverBasePath base path to set
-     * @return          void
      * @uses            self::$serverBasePath
      */
-    public function setBasePath($serverBasePath)
+    public function setBasePath(string $serverBasePath): void
     {
         $this->serverBasePath = $serverBasePath;
     }
@@ -686,7 +663,7 @@ class Router implements RouterInterface
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @return          array
      */
-    private static function formatMethods($methods)
+    private static function formatMethods(array|string $methods): array
     {
         return array_map(function ($method) {
             return \mb_strtoupper($method);
@@ -701,16 +678,15 @@ class Router implements RouterInterface
      * @version         1.0.0, 26.11.2020
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
-     * @return          void
      * @uses            self::$notFoundCallback
      * @uses            self::invoke()
      */
-    private function handleNotFound()
+    private function handleNotFound(): void
     {
         if ($this->notFoundCallback) {
             $this->invoke($this->notFoundCallback);
         } else {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+            header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
         }
         exit;
     }
