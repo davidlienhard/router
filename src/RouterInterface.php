@@ -32,9 +32,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function beforeAll(string $pattern, $fn);
+    public function beforeAll(string $pattern, object|callable $fn): void;
 
     /**
      * registers a before middleware route and a handling function
@@ -47,9 +46,8 @@ interface RouterInterface
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function before($methods, string $pattern, $fn);
+    public function before(array|string $methods, string $pattern, object|callable $fn): void;
 
     /**
      * store a route and a handling function to be executed
@@ -62,9 +60,8 @@ interface RouterInterface
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function add($methods, string $pattern, $fn);
+    public function add(array|string $methods, string $pattern, object|callable $fn): void;
 
     /**
      * shorthand for a route accessed using any method
@@ -75,9 +72,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function all(string $pattern, $fn);
+    public function all(string $pattern, object|callable $fn): void;
 
     /**
      * shorthand for a route accessed using GET
@@ -88,9 +84,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function get(string $pattern, $fn);
+    public function get(string $pattern, object|callable $fn): void;
 
     /**
      * shorthand for a route accessed using POST
@@ -101,9 +96,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function post(string $pattern, $fn);
+    public function post(string $pattern, object|callable $fn): void;
 
     /**
      * Shorthand for a route accessed using PATCH
@@ -114,9 +108,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function patch(string $pattern, $fn);
+    public function patch(string $pattern, object|callable $fn): void;
 
     /**
      * Shorthand for a route accessed using DELETE
@@ -127,9 +120,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function delete(string $pattern, $fn);
+    public function delete(string $pattern, object|callable $fn): void;
 
     /**
      * Shorthand for a route accessed using PUT
@@ -140,9 +132,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function put(string $pattern, $fn);
+    public function put(string $pattern, object|callable $fn): void;
 
     /**
      * Shorthand for a route accessed using OPTIONS
@@ -153,9 +144,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @return          void
      */
-    public function options(string $pattern, $fn);
+    public function options(string $pattern, object|callable $fn): void;
 
     /**
      * mounts a collection of callbacks onto a base route
@@ -166,9 +156,8 @@ interface RouterInterface
      * @copyright       tourasia
      * @param           string          $baseRoute      the route sub pattern to mount the callbacks on
      * @param           callable        $fn             the callback method
-     * @return          void
      */
-    public function mount(string $baseRoute, $fn);
+    public function mount(string $baseRoute, callable $fn): void;
 
     /**
      * get all request headers
@@ -179,7 +168,7 @@ interface RouterInterface
      * @copyright       tourasia
      * @return          array           the request headers
      */
-    public function getRequestHeaders();
+    public function getRequestHeaders(): array;
 
     /**
      * get the request method used, taking overrides into account
@@ -190,7 +179,7 @@ interface RouterInterface
      * @copyright       tourasia
      * @return          string          the Request method to handle
      */
-    public function getRequestMethod();
+    public function getRequestMethod(): string;
 
     /**
      * set a default lookup namespace for callable methods
@@ -200,9 +189,8 @@ interface RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $namespace      a given namespace
-     * @return          void
      */
-    public function setNamespace($namespace);
+    public function setNamespace(string $namespace): void;
 
     /**
      * get the given namespace before
@@ -213,7 +201,7 @@ interface RouterInterface
      * @copyright       tourasia
      * @return          string          the given namespace if exists
      */
-    public function getNamespace();
+    public function getNamespace(): string;
 
     /**
      * execute the router:
@@ -224,9 +212,8 @@ interface RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           object|callable $callback       function to be executed after a matching route was handled (= after router middleware)
-     * @return          bool
      */
-    public function run($callback = null);
+    public function run(object|callable $callback = null): bool;
 
     /**
      * set the 404 handling function
@@ -236,9 +223,8 @@ interface RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           object|callable $fn             the function to be executed$
-     * @return          void
      */
-    public function set404($fn);
+    public function set404(object|callable $fn): void;
 
     /**
      * define the current relative URI.
@@ -247,9 +233,8 @@ interface RouterInterface
      * @version         1.0.0, 26.11.2020
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
-     * @return          string
      */
-    public function getCurrentUri();
+    public function getCurrentUri(): string;
 
     /**
      * return server base path, and define it if isn't defined.
@@ -258,9 +243,8 @@ interface RouterInterface
      * @version         1.0.0, 26.11.2020
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
-     * @return          string
      */
-    public function getBasePath();
+    public function getBasePath(): string;
 
     /**
      * explicilty sets the server base path.
@@ -271,7 +255,6 @@ interface RouterInterface
      * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $serverBasePath base path to set
-     * @return          void
      */
-    public function setBasePath($serverBasePath);
+    public function setBasePath(string $serverBasePath): void;
 }
