@@ -4,8 +4,6 @@
  *
  * @package         tourBase
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.0, 26.11.2020
- * @since           1.0.0, 26.11.2020, created
  * @copyright       tourasia
  */
 
@@ -17,8 +15,6 @@ namespace DavidLienhard\Router;
  * interface for router class
  *
  * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @version         1.0.0, 26.11.2020
- * @since           1.0.0, 26.11.2020, created
  * @copyright       tourasia
  */
 interface RouterInterface
@@ -27,8 +23,6 @@ interface RouterInterface
      * registers a before middleware route for all available methods
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -40,8 +34,6 @@ interface RouterInterface
      * to be executed when accessed using one of the specified methods.
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
@@ -54,8 +46,6 @@ interface RouterInterface
      * when accessed using one of the specified methods.
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
@@ -67,8 +57,6 @@ interface RouterInterface
      * shorthand for a route accessed using any method
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -79,8 +67,6 @@ interface RouterInterface
      * shorthand for a route accessed using GET
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -91,8 +77,6 @@ interface RouterInterface
      * shorthand for a route accessed using POST
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -103,8 +87,6 @@ interface RouterInterface
      * Shorthand for a route accessed using PATCH
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -115,8 +97,6 @@ interface RouterInterface
      * Shorthand for a route accessed using DELETE
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -127,8 +107,6 @@ interface RouterInterface
      * Shorthand for a route accessed using PUT
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -139,8 +117,6 @@ interface RouterInterface
      * Shorthand for a route accessed using OPTIONS
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -151,8 +127,6 @@ interface RouterInterface
      * mounts a collection of callbacks onto a base route
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $baseRoute      the route sub pattern to mount the callbacks on
      * @param           callable        $fn             the callback method
@@ -163,8 +137,6 @@ interface RouterInterface
      * get all request headers
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @return          array           the request headers
      */
@@ -174,8 +146,6 @@ interface RouterInterface
      * get the request method used, taking overrides into account
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @return          string          the Request method to handle
      */
@@ -185,8 +155,6 @@ interface RouterInterface
      * set a default lookup namespace for callable methods
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $namespace      a given namespace
      */
@@ -196,8 +164,6 @@ interface RouterInterface
      * get the given namespace before
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @return          string          the given namespace if exists
      */
@@ -208,8 +174,6 @@ interface RouterInterface
      * loop all defined before middleware's and routes, and execute the handling function if a match was found
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           object|callable $callback       function to be executed after a matching route was handled (= after router middleware)
      */
@@ -219,8 +183,6 @@ interface RouterInterface
      * set the 404 handling function
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           object|callable $fn             the function to be executed$
      */
@@ -230,8 +192,6 @@ interface RouterInterface
      * define the current relative URI.
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      */
     public function getCurrentUri(): string;
@@ -240,8 +200,6 @@ interface RouterInterface
      * return server base path, and define it if isn't defined.
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      */
     public function getBasePath(): string;
@@ -251,8 +209,6 @@ interface RouterInterface
      * to be used when your entry script path differs from your entry URLs.
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @version         1.0.0, 26.11.2020
-     * @since           1.0.0, 26.11.2020, created
      * @copyright       tourasia
      * @param           string          $serverBasePath base path to set
      */
