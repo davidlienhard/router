@@ -175,18 +175,18 @@ interface RouterInterface
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       tourasia
-     * @param           object|callable $callback       function to be executed after a matching route was handled (= after router middleware)
+     * @param           callable|string $callback       function to be executed after a matching route was handled (= after router middleware)
      */
-    public function run(object|callable $callback = null): bool;
+    public function run(callable | string $callback = null): bool;
 
     /**
      * set the 404 handling function
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       tourasia
-     * @param           object|callable $fn             the function to be executed$
+     * @param           callable|string $fn             the function to be executed$
      */
-    public function set404(object|callable $fn): void;
+    public function set404(callable | string $fn): void;
 
     /**
      * define the current relative URI.
