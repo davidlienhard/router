@@ -55,7 +55,7 @@ class Router implements RouterInterface
 
     /**
      * the function to be executed when no route has been matched
-     * @var     object|callable $notFoundCallback
+     * @var     string|callable|null $notFoundCallback
      */
     protected $notFoundCallback;
 
@@ -72,7 +72,7 @@ class Router implements RouterInterface
     /**
      * the server base path for router execution
      */
-    private string $serverBasePath;
+    private string | null $serverBasePath = null;
 
     /**
      * default controllers namespace
@@ -398,7 +398,7 @@ class Router implements RouterInterface
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       tourasia
-     * @param           object|callable $callback       function to be executed after a matching route was handled (= after router middleware)
+     * @param           callable|string $callback       function to be executed after a matching route was handled (= after router middleware)
      * @uses            self::$requestedMethod
      * @uses            self::getRequestMethod()
      * @uses            self::$beforeRoutes
@@ -406,7 +406,7 @@ class Router implements RouterInterface
      * @uses            self::$routes
      * @uses            self::$notFoundCallback
      */
-    public function run(object|callable $callback = null): bool
+    public function run(callable | string $callback = null): bool
     {
         // Define which method we need to handle
         $this->requestedMethod = $this->getRequestMethod();
@@ -445,10 +445,10 @@ class Router implements RouterInterface
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       tourasia
-     * @param           object|callable $fn             the function to be executed$
+     * @param           callable|string $fn             the function to be executed$
      * @uses            self::$notFoundCallback
      */
-    public function set404(object|callable $fn): void
+    public function set404(callable | string $fn): void
     {
         $this->notFoundCallback = $fn;
     }
@@ -516,11 +516,11 @@ class Router implements RouterInterface
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       tourasia
-     * @param           callable|object $fn             function / method to invoke
+     * @param           callable|string $fn             function / method to invoke
      * @param           array           $params         list of parameters
      * @uses            self::getNamespace()
      */
-    private function invoke(callable|object $fn, array $params = []): void
+    private function invoke(callable|string $fn, array $params = []): void
     {
         if (is_callable($fn)) {
             call_user_func_array($fn, $params);
@@ -592,10 +592,10 @@ class Router implements RouterInterface
      *
      * @author          David Lienhard <david.lienhard@tourasia.ch>
      * @copyright       tourasia
-     * @param           string          $serverBasePath base path to set
+     * @param           string|null     $serverBasePath base path to set
      * @uses            self::$serverBasePath
      */
-    public function setBasePath(string $serverBasePath): void
+    public function setBasePath(string | null $serverBasePath): void
     {
         $this->serverBasePath = $serverBasePath;
     }
