@@ -72,7 +72,7 @@ class Router implements RouterInterface
     /**
      * the server base path for router execution
      */
-    private string | null $serverBasePath = null;
+    private string|null $serverBasePath = null;
 
     /**
      * default controllers namespace
@@ -329,7 +329,7 @@ class Router implements RouterInterface
 
         // Method getallheaders() not available or went wrong: manually extract 'm
         foreach ($_SERVER as $name => $value) {
-            if (substr($name, 0, 5) == 'HTTP_' || $name == 'CONTENT_TYPE' || $name == 'CONTENT_LENGTH') {
+            if (substr($name, 0, 5) === 'HTTP_' || $name === 'CONTENT_TYPE' || $name === 'CONTENT_LENGTH') {
                 $headers[str_replace([' ', 'Http'], ['-', 'HTTP'], ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
             }
         }
@@ -351,12 +351,12 @@ class Router implements RouterInterface
 
         // If it's a HEAD request override it to being GET and prevent any output, as per HTTP Specification
         // @url http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.4
-        if ($_SERVER['REQUEST_METHOD'] == 'HEAD') {
+        if ($_SERVER['REQUEST_METHOD'] === 'HEAD') {
             ob_start();
             $method = 'GET';
-        } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') { // If it's a POST request, check for a method override header
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') { // If it's a POST request, check for a method override header
             $headers = $this->getRequestHeaders();
-            if (isset($headers['X-HTTP-Method-Override']) && in_array($headers['X-HTTP-Method-Override'], ['PUT', 'DELETE', 'PATCH'])) {
+            if (isset($headers['X-HTTP-Method-Override']) && in_array($headers['X-HTTP-Method-Override'], ['PUT', 'DELETE', 'PATCH'], true)) {
                 $method = $headers['X-HTTP-Method-Override'];
             }
         }
@@ -406,7 +406,7 @@ class Router implements RouterInterface
      * @uses            self::$routes
      * @uses            self::$notFoundCallback
      */
-    public function run(callable | string $callback = null): bool
+    public function run(callable|string $callback = null): bool
     {
         // Define which method we need to handle
         $this->requestedMethod = $this->getRequestMethod();
@@ -432,7 +432,7 @@ class Router implements RouterInterface
         }
 
         // If it originally was a HEAD request, clean up after ourselves by emptying the output buffer
-        if ($_SERVER['REQUEST_METHOD'] == 'HEAD') {
+        if ($_SERVER['REQUEST_METHOD'] === 'HEAD') {
             ob_end_clean();
         }
 
@@ -448,7 +448,7 @@ class Router implements RouterInterface
      * @param           callable|string $fn             the function to be executed$
      * @uses            self::$notFoundCallback
      */
-    public function set404(callable | string $fn): void
+    public function set404(callable|string $fn): void
     {
         $this->notFoundCallback = $fn;
     }
@@ -595,7 +595,7 @@ class Router implements RouterInterface
      * @param           string|null     $serverBasePath base path to set
      * @uses            self::$serverBasePath
      */
-    public function setBasePath(string | null $serverBasePath): void
+    public function setBasePath(string|null $serverBasePath): void
     {
         $this->serverBasePath = $serverBasePath;
     }
@@ -611,9 +611,7 @@ class Router implements RouterInterface
      */
     private static function formatMethods(array|string $methods): array
     {
-        return array_map(function ($method) {
-            return \mb_strtoupper($method);
-        }, !is_array($methods) ? [ $methods ] : $methods);
+        return array_map(fn ($method) => \mb_strtoupper($method), !is_array($methods) ? [ $methods ] : $methods);
     }
 
     /**
