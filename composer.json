@@ -1,6 +1,6 @@
 {
     "name": "davidlienhard/router",
-    "license": "proprietary",
+    "license": ["MIT"],
     "description": "🐘 php library for routing",
     "keywords": [ "router", "php", "library" ],
     "type": "libary",
