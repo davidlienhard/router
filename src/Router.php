@@ -3,8 +3,8 @@
  * contains \DavidLienhard\Router\Router class
  *
  * @package         tourBase
- * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @copyright       tourasia
+ * @author          David Lienhard <github@lienhard.win>
+ * @copyright       David Lienhard
  */
 
 declare(strict_types=1);
@@ -16,8 +16,8 @@ use \DavidLienhard\Router\RouterInterface;
 /**
  * provides routing functionality
  *
- * @author          David Lienhard <david.lienhard@tourasia.ch>
- * @copyright       tourasia
+ * @author          David Lienhard <github@lienhard.win>
+ * @copyright       David Lienhard
  */
 class Router implements RouterInterface
 {
@@ -59,32 +59,24 @@ class Router implements RouterInterface
      */
     protected $notFoundCallback;
 
-    /**
-     * current base route, used for (sub)route mounting
-     */
+    /** current base route, used for (sub)route mounting */
     private string $baseRoute = '';
 
-    /**
-     * the request method that needs to be handled
-     */
+    /** the request method that needs to be handled */
     private string $requestedMethod = '';
 
-    /**
-     * the server base path for router execution
-     */
+    /** the server base path for router execution */
     private string|null $serverBasePath = null;
 
-    /**
-     * default controllers namespace
-     */
+    /** default controllers namespace */
     private string $namespace = '';
 
 
     /**
      * sets the given dependencies
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           array           $dependencies   associative array of dependencies. key will be the new name of the var
      * @return          void
      * @uses            self::$dependencies
@@ -98,8 +90,8 @@ class Router implements RouterInterface
      * loads the dependencies and requires the given file
      * if the files does not exist the notFound handler wil be used
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $file           file to require
      * @uses            self::$dependencies
      * @uses            self::handleNotFound()
@@ -121,8 +113,8 @@ class Router implements RouterInterface
     /**
      * registers a before middleware route for all available methods
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
      * @uses            self::before()
@@ -137,8 +129,8 @@ class Router implements RouterInterface
      * registers a before middleware route and a handling function
      * to be executed when accessed using one of the specified methods.
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -162,8 +154,8 @@ class Router implements RouterInterface
      * store a route and a handling function to be executed
      * when accessed using one of the specified methods.
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
@@ -186,8 +178,8 @@ class Router implements RouterInterface
     /**
      * shorthand for a route accessed using any method
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
      * @uses            self::add()
@@ -201,8 +193,8 @@ class Router implements RouterInterface
     /**
      * shorthand for a route accessed using GET
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
      * @uses            self::add()
@@ -215,8 +207,8 @@ class Router implements RouterInterface
     /**
      * shorthand for a route accessed using POST
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
      * @uses            self::add()
@@ -229,8 +221,8 @@ class Router implements RouterInterface
     /**
      * Shorthand for a route accessed using PATCH
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
      * @uses            self::add()
@@ -243,8 +235,8 @@ class Router implements RouterInterface
     /**
      * Shorthand for a route accessed using DELETE
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
      * @uses            self::add()
@@ -257,8 +249,8 @@ class Router implements RouterInterface
     /**
      * Shorthand for a route accessed using PUT
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
      * @uses            self::add()
@@ -271,8 +263,8 @@ class Router implements RouterInterface
     /**
      * Shorthand for a route accessed using OPTIONS
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
      * @uses            self::add()
@@ -285,8 +277,8 @@ class Router implements RouterInterface
     /**
      * mounts a collection of callbacks onto a base route
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $baseRoute      the route sub pattern to mount the callbacks on
      * @param           callable        $fn             the callback method
      * @uses            self::$baseRoute
@@ -309,8 +301,8 @@ class Router implements RouterInterface
     /**
      * get all request headers
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @return          array           the request headers
      */
     public function getRequestHeaders(): array
@@ -340,8 +332,8 @@ class Router implements RouterInterface
     /**
      * get the request method used, taking overrides into account
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @return          string          the Request method to handle
      */
     public function getRequestMethod(): string
@@ -367,8 +359,8 @@ class Router implements RouterInterface
     /**
      * set a default lookup namespace for callable methods
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string          $namespace      a given namespace
      * @uses            self::$namespace
      */
@@ -382,8 +374,8 @@ class Router implements RouterInterface
     /**
      * get the given namespace before
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @return          string          the given Namespace if exists
      * @uses            self::$namespace
      */
@@ -396,8 +388,8 @@ class Router implements RouterInterface
      * execute the router:
      * loop all defined before middleware's and routes, and execute the handling function if a match was found
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           callable|string $callback       function to be executed after a matching route was handled (= after router middleware)
      * @uses            self::$requestedMethod
      * @uses            self::getRequestMethod()
@@ -443,8 +435,8 @@ class Router implements RouterInterface
     /**
      * set the 404 handling function
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           callable|string $fn             the function to be executed$
      * @uses            self::$notFoundCallback
      */
@@ -457,8 +449,8 @@ class Router implements RouterInterface
      * handle a a set of routes:
      * if a match is found, execute the relating handling function
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           array           $routes         collection of route patterns and their handling functions
      * @param           bool            $quitAfterRun   does the handle function need to quit after one route was matched?
      * @return          int             the number of routes handled
@@ -514,8 +506,8 @@ class Router implements RouterInterface
     /**
      * invokes a given function / method
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           callable|string $fn             function / method to invoke
      * @param           array           $params         list of parameters
      * @uses            self::getNamespace()
@@ -548,8 +540,8 @@ class Router implements RouterInterface
     /**
      * define the current relative URI.
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @uses            self::getBasePath()
      */
     public function getCurrentUri(): string
@@ -569,8 +561,8 @@ class Router implements RouterInterface
     /**
      * return server base path, and define it if isn't defined.
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @uses            self::$serverBasePath
      */
     public function getBasePath(): string
@@ -590,8 +582,8 @@ class Router implements RouterInterface
      * explicilty sets the server base path.
      * to be used when your entry script path differs from your entry URLs.
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           string|null     $serverBasePath base path to set
      * @uses            self::$serverBasePath
      */
@@ -604,8 +596,8 @@ class Router implements RouterInterface
      * returns the given methods in correct format
      * always as array and upperstring
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @return          array
      */
@@ -618,8 +610,8 @@ class Router implements RouterInterface
      * handles the event if a page is not found
      * this can either be an inexistent route or a not existig file
      *
-     * @author          David Lienhard <david.lienhard@tourasia.ch>
-     * @copyright       tourasia
+     * @author          David Lienhard <github@lienhard.win>
+     * @copyright       David Lienhard
      * @uses            self::$notFoundCallback
      * @uses            self::invoke()
      */
