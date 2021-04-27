@@ -2,7 +2,6 @@
 /**
  * contains \DavidLienhard\Router\Router class
  *
- * @package         tourBase
  * @author          David Lienhard <github@lienhard.win>
  * @copyright       David Lienhard
  */
@@ -79,7 +78,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           array           $dependencies   associative array of dependencies. key will be the new name of the var
      * @return          void
-     * @uses            self::$dependencies
      */
     public function __construct(array $dependencies = [])
     {
@@ -93,8 +91,6 @@ class Router implements RouterInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $file           file to require
-     * @uses            self::$dependencies
-     * @uses            self::handleNotFound()
      */
     public function require(string $file) : void
     {
@@ -117,8 +113,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::before()
-     * @uses            self::$supportedMethods
      */
     public function beforeAll(string $pattern, object|callable $fn): void
     {
@@ -134,8 +128,6 @@ class Router implements RouterInterface
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::$baseRoute
-     * @uses            self::$beforeRoutes
      */
     public function before(array|string $methods, string $pattern, object|callable $fn): void
     {
@@ -159,8 +151,6 @@ class Router implements RouterInterface
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::$baseRoute
-     * @uses            self::$routes
      */
     public function add(array|string $methods, string $pattern, object|callable $fn): void
     {
@@ -182,8 +172,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::add()
-     * @uses            self::$supportedMethods
      */
     public function all(string $pattern, object|callable $fn): void
     {
@@ -197,7 +185,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::add()
      */
     public function get(string $pattern, object|callable $fn): void
     {
@@ -211,7 +198,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::add()
      */
     public function post(string $pattern, object|callable $fn): void
     {
@@ -225,7 +211,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::add()
      */
     public function patch(string $pattern, object|callable $fn): void
     {
@@ -239,7 +224,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::add()
      */
     public function delete(string $pattern, object|callable $fn): void
     {
@@ -253,7 +237,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::add()
      */
     public function put(string $pattern, object|callable $fn): void
     {
@@ -267,7 +250,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $pattern        a route pattern such as /about/system
      * @param           object|callable $fn             the handling function to be executed
-     * @uses            self::add()
      */
     public function options(string $pattern, object|callable $fn): void
     {
@@ -281,7 +263,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           string          $baseRoute      the route sub pattern to mount the callbacks on
      * @param           callable        $fn             the callback method
-     * @uses            self::$baseRoute
      */
     public function mount(string $baseRoute, callable $fn): void
     {
@@ -362,7 +343,6 @@ class Router implements RouterInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string          $namespace      a given namespace
-     * @uses            self::$namespace
      */
     public function setNamespace(string $namespace): void
     {
@@ -377,7 +357,6 @@ class Router implements RouterInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @return          string          the given Namespace if exists
-     * @uses            self::$namespace
      */
     public function getNamespace(): string
     {
@@ -391,12 +370,6 @@ class Router implements RouterInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           callable|string $callback       function to be executed after a matching route was handled (= after router middleware)
-     * @uses            self::$requestedMethod
-     * @uses            self::getRequestMethod()
-     * @uses            self::$beforeRoutes
-     * @uses            self::handle()
-     * @uses            self::$routes
-     * @uses            self::$notFoundCallback
      */
     public function run(callable|string $callback = null): bool
     {
@@ -438,7 +411,6 @@ class Router implements RouterInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           callable|string $fn             the function to be executed$
-     * @uses            self::$notFoundCallback
      */
     public function set404(callable|string $fn): void
     {
@@ -454,8 +426,6 @@ class Router implements RouterInterface
      * @param           array           $routes         collection of route patterns and their handling functions
      * @param           bool            $quitAfterRun   does the handle function need to quit after one route was matched?
      * @return          int             the number of routes handled
-     * @uses            self::getCurrentUri()
-     * @uses            self::invoke()
      */
     private function handle(array $routes, bool $quitAfterRun = false): int
     {
@@ -510,7 +480,6 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           callable|string $fn             function / method to invoke
      * @param           array           $params         list of parameters
-     * @uses            self::getNamespace()
      */
     private function invoke(callable|string $fn, array $params = []): void
     {
@@ -542,7 +511,6 @@ class Router implements RouterInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::getBasePath()
      */
     public function getCurrentUri(): string
     {
@@ -563,7 +531,6 @@ class Router implements RouterInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::$serverBasePath
      */
     public function getBasePath(): string
     {
@@ -585,7 +552,6 @@ class Router implements RouterInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           string|null     $serverBasePath base path to set
-     * @uses            self::$serverBasePath
      */
     public function setBasePath(string|null $serverBasePath): void
     {
@@ -612,8 +578,6 @@ class Router implements RouterInterface
      *
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
-     * @uses            self::$notFoundCallback
-     * @uses            self::invoke()
      */
     private function handleNotFound(): void
     {
