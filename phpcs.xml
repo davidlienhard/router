@@ -3,7 +3,9 @@
     <description>tourBase coding standard</description>
 
     <!-- inherit rules -->
-    <rule ref="DavidLienhard" />
+    <rule ref="DavidLienhard">
+        <exclude name="SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable" />
+    </rule>
 
     <!-- Paths to check -->
     <file>src</file>
