@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace DavidLienhard\Router;
 
-use \DavidLienhard\Router\RouterInterface;
+use DavidLienhard\Router\RouterInterface;
 
 /**
  * provides routing functionality
