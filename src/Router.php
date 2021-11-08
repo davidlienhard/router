@@ -520,7 +520,7 @@ class Router implements RouterInterface
 
         // Don't take query params into account on the URL
         if (strstr($uri, '?')) {
-            $uri = substr($uri, 0, strpos($uri, '?'));
+            $uri = substr($uri, 0, strpos($uri, '?') ?: null);
         }
 
         // Remove trailing slash + enforce a slash at the start
