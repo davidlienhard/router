@@ -495,9 +495,11 @@ class Router implements RouterInterface
             if (class_exists($controller)) {
                 // First check if is a static method, directly trying to invoke it.
                 // If isn't a valid static method, we will try as a normal method invocation.
-                if (call_user_func_array([new $controller(), $method], $params) === false) {
+                $staticMethod = [ new $controller(), $method ];
+                if (is_callable($staticMethod) && call_user_func_array($staticMethod, $params) === false) {
                     // Try to call the method as an non-static method. (the if does nothing, only avoids the notice)
-                    if (forward_static_call_array([$controller, $method], $params) === false) {
+                    $nonStaticMethod = [ $controller, $method ];
+                    if (is_callable($nonStaticMethod) && forward_static_call_array($nonStaticMethod, $params) === false) {
                         //
                     }
                 }
@@ -518,7 +520,7 @@ class Router implements RouterInterface
 
         // Don't take query params into account on the URL
         if (strstr($uri, '?')) {
-            $uri = substr($uri, 0, strpos($uri, '?'));
+            $uri = substr($uri, 0, strpos($uri, '?') ?: null);
         }
 
         // Remove trailing slash + enforce a slash at the start
