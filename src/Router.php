@@ -438,7 +438,7 @@ class Router implements RouterInterface
         foreach ($routes as $route) {
             // Replace all curly braces matches {} into word patterns (like Laravel)
             $pattern = preg_replace('/\/{(.*?)}/', '/(.*?)', $route['pattern']);
-            $route['pattern'] = is_string($pattern) ? $pattern : $route['pattern']
+            $route['pattern'] = is_string($pattern) ? $pattern : $route['pattern'];
 
             // we have a match!
             if (preg_match_all('#^'.$route['pattern'].'$#', $uri, $matches, PREG_OFFSET_CAPTURE)) {
