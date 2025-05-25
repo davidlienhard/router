@@ -176,7 +176,7 @@ interface RouterInterface
      * @copyright       David Lienhard
      * @param           callable|string $callback       function to be executed after a matching route was handled (= after router middleware)
      */
-    public function run(callable|string $callback = null): bool;
+    public function run(callable|string|null $callback = null): bool;
 
     /**
      * set the 404 handling function

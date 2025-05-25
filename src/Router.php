@@ -19,16 +19,10 @@ use DavidLienhard\Router\RouterInterface;
  */
 class Router implements RouterInterface
 {
-    /**
-     * list of dependencies to load
-     * @var     array           $dependencies
-     */
+    /** list of dependencies to load */
     private array $dependencies = [];
 
-    /**
-     * list of all supported http request methods
-     * @var     array           $supportedMethods
-     */
+    /** list of all supported http request methods */
     private array $supportedMethods = [
         "GET",
         "POST",
@@ -39,16 +33,10 @@ class Router implements RouterInterface
         "HEAD"
     ];
 
-    /**
-     * the route patterns and their handling functions
-     * @var     array           $routes
-     */
+    /** the route patterns and their handling functions */
     private array $routes = [];
 
-    /**
-     * the before middleware route patterns and their handling functions
-     * @var     array           $beforeRoutes
-     */
+    /** the before middleware route patterns and their handling functions */
     private array $beforeRoutes = [];
 
     /**
@@ -370,7 +358,7 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           callable|string $callback       function to be executed after a matching route was handled (= after router middleware)
      */
-    public function run(callable|string $callback = null): bool
+    public function run(callable|string|null $callback = null): bool
     {
         // Define which method we need to handle
         $this->requestedMethod = $this->getRequestMethod();
@@ -567,7 +555,6 @@ class Router implements RouterInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
-     * @return          array
      */
     private static function formatMethods(array|string $methods): array
     {
