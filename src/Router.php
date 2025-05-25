@@ -33,10 +33,16 @@ class Router implements RouterInterface
         "HEAD"
     ];
 
-    /** the route patterns and their handling functions */
+    /**
+     * the route patterns and their handling functions
+     * @var array<string, array<array<string, (callable)|object|string>>>
+     */
     private array $routes = [];
 
-    /** the before middleware route patterns and their handling functions */
+    /**
+     * the before middleware route patterns and their handling functions
+     * @var array<string, array<array<string, (callable)|object|string>>>
+     */
     private array $beforeRoutes = [];
 
     /**
@@ -46,16 +52,16 @@ class Router implements RouterInterface
     protected $notFoundCallback;
 
     /** current base route, used for (sub)route mounting */
-    private string $baseRoute = '';
+    private string $baseRoute = "";
 
     /** the request method that needs to be handled */
-    private string $requestedMethod = '';
+    private string $requestedMethod = "";
 
     /** the server base path for router execution */
     private string|null $serverBasePath = null;
 
     /** default controllers namespace */
-    private string $namespace = '';
+    private string $namespace = "";
 
 
     /**
@@ -118,13 +124,13 @@ class Router implements RouterInterface
      */
     public function before(array|string $methods, string $pattern, object|callable $fn): void
     {
-        $pattern = $this->baseRoute.'/'.trim($pattern, '/');
-        $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
+        $pattern = $this->baseRoute."/".trim($pattern, "/");
+        $pattern = $this->baseRoute ? rtrim($pattern, "/") : $pattern;
 
         foreach (self::formatMethods($methods) as $method) {
             $this->beforeRoutes[$method][] = [
-                'pattern' => $pattern,
-                'fn'      => $fn,
+                "pattern" => $pattern,
+                "fn"      => $fn,
             ];
         }
     }
@@ -141,13 +147,13 @@ class Router implements RouterInterface
      */
     public function add(array|string $methods, string $pattern, object|callable $fn): void
     {
-        $pattern = $this->baseRoute.'/'.trim($pattern, '/');
-        $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
+        $pattern = $this->baseRoute."/".trim($pattern, "/");
+        $pattern = $this->baseRoute ? rtrim($pattern, "/") : $pattern;
 
         foreach (self::formatMethods($methods) as $method) {
             $this->routes[$method][] = [
-                'pattern' => $pattern,
-                'fn'      => $fn,
+                "pattern" => $pattern,
+                "fn"      => $fn,
             ];
         }
     }
@@ -175,7 +181,7 @@ class Router implements RouterInterface
      */
     public function get(string $pattern, object|callable $fn): void
     {
-        $this->add('GET', $pattern, $fn);
+        $this->add("GET", $pattern, $fn);
     }
 
     /**
@@ -188,7 +194,7 @@ class Router implements RouterInterface
      */
     public function post(string $pattern, object|callable $fn): void
     {
-        $this->add('POST', $pattern, $fn);
+        $this->add("POST", $pattern, $fn);
     }
 
     /**
@@ -201,7 +207,7 @@ class Router implements RouterInterface
      */
     public function patch(string $pattern, object|callable $fn): void
     {
-        $this->add('PATCH', $pattern, $fn);
+        $this->add("PATCH", $pattern, $fn);
     }
 
     /**
@@ -214,7 +220,7 @@ class Router implements RouterInterface
      */
     public function delete(string $pattern, object|callable $fn): void
     {
-        $this->add('DELETE', $pattern, $fn);
+        $this->add("DELETE", $pattern, $fn);
     }
 
     /**
@@ -227,7 +233,7 @@ class Router implements RouterInterface
      */
     public function put(string $pattern, object|callable $fn): void
     {
-        $this->add('PUT', $pattern, $fn);
+        $this->add("PUT", $pattern, $fn);
     }
 
     /**
@@ -240,7 +246,7 @@ class Router implements RouterInterface
      */
     public function options(string $pattern, object|callable $fn): void
     {
-        $this->add('OPTIONS', $pattern, $fn);
+        $this->add("OPTIONS", $pattern, $fn);
     }
 
     /**
@@ -278,19 +284,14 @@ class Router implements RouterInterface
         $headers = [];
 
         // If getallheaders() is available, use that
-        if (function_exists('getallheaders')) {
-            $headers = getallheaders();
-
-            // getallheaders() can return false if something went wrong
-            if ($headers !== false) {
-                return $headers;
-            }
+        if (function_exists("getallheaders")) {
+            return getallheaders();
         }
 
-        // Method getallheaders() not available or went wrong: manually extract 'm
+        // Method getallheaders() not available or went wrong: manually extract
         foreach ($_SERVER as $name => $value) {
-            if (substr($name, 0, 5) === 'HTTP_' || $name === 'CONTENT_TYPE' || $name === 'CONTENT_LENGTH') {
-                $headers[str_replace([' ', 'Http'], ['-', 'HTTP'], ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            if (substr($name, 0, 5) === "HTTP_" || $name === "CONTENT_TYPE" || $name === "CONTENT_LENGTH") {
+                $headers[str_replace([" ", "Http"], ["-", "HTTP"], ucwords(strtolower(str_replace("_", " ", substr($name, 5)))))] = $value;
             }
         }
 
@@ -333,9 +334,7 @@ class Router implements RouterInterface
      */
     public function setNamespace(string $namespace): void
     {
-        if (is_string($namespace)) {
-            $this->namespace = $namespace;
-        }
+        $this->namespace = $namespace;
     }
 
     /**
@@ -555,10 +554,14 @@ class Router implements RouterInterface
      * @author          David Lienhard <github@lienhard.win>
      * @copyright       David Lienhard
      * @param           array|string    $methods        allowed methods. single method as string, multiple as array
+     * @return          array<string>
      */
-    private static function formatMethods(array|string $methods): array
+    private static function formatMethods(array|string $methods) : array
     {
-        return array_map(fn ($method) => \mb_strtoupper($method), !is_array($methods) ? [ $methods ] : $methods);
+        return array_map(
+            fn ($method) => \mb_strtoupper($method),
+            !is_array($methods) ? [ $methods ] : $methods
+        );
     }
 
     /**

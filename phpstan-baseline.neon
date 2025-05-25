@@ -1,0 +1,61 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Binary operation "\." between ''\#\^'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Router.php
+
+		-
+			message: '#^Binary operation "\." between mixed and '' 404 Not Found'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Router.php
+
+		-
+			message: '#^Cannot access offset ''fn'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Router.php
+
+		-
+			message: '#^Cannot access offset ''pattern'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 4
+			path: src/Router.php
+
+		-
+			message: '#^Method DavidLienhard\\Router\\Router\:\:getRequestMethod\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Router.php
+
+		-
+			message: '#^Parameter \#1 \$fn of method DavidLienhard\\Router\\Router\:\:invoke\(\) expects \(callable\(\)\: mixed\)\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Router.php
+
+		-
+			message: '#^Parameter \#1 \$string of function mb_strtoupper expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Router.php
+
+		-
+			message: '#^Parameter \#1 \$string of function rawurldecode expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Router.php
+
+		-
+			message: '#^Parameter \#2 \$string of function explode expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Router.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Router.php
