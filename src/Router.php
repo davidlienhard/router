@@ -370,7 +370,7 @@ class Router implements RouterInterface
      * @copyright       David Lienhard
      * @param           callable|string $callback       function to be executed after a matching route was handled (= after router middleware)
      */
-    public function run(callable|string $callback = null): bool
+    public function run(callable|string|null $callback = null): bool
     {
         // Define which method we need to handle
         $this->requestedMethod = $this->getRequestMethod();
