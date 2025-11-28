@@ -19,12 +19,6 @@ parameters:
 			path: src/Router.php
 
 		-
-			message: '#^Cannot access offset ''pattern'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 4
-			path: src/Router.php
-
-		-
 			message: '#^Method DavidLienhard\\Router\\Router\:\:getRequestMethod\(\) should return string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
